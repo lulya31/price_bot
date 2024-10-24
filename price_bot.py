@@ -4,20 +4,24 @@ from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes, CallbackQueryHandler
 import asyncio
 import logging
+import os
 from supabase import create_client, Client
+from dotenv import load_dotenv
 
 # Allow nested event loops
 nest_asyncio.apply()
+
+load_dotenv()
 
 # Setup logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 # Replace with your actual API keys
-API_KEY = '7990863541:AAG_hH8KwYJWemfeKh1_4a80ZBRrGSD6p8k'
-COINMARKETCAP_API_KEY = '0a514240-c93b-4809-8497-f877cca910fd'
-SUPABASE_URL = 'https://vidsukivzzxhlbmecziy.supabase.co'
-SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZpZHN1a2l2enp4aGxibWVjeml5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mjk0OTU2MDAsImV4cCI6MjA0NTA3MTYwMH0.Mq5UPFZc4rxt3kHjrL1LuDN7Ls-5azPJmRs9mSTZMUg'
+API_KEY = os.getenv('API_KEY')
+COINMARKETCAP_API_KEY = os.getenv('COINMARKETCAP_API_KEY')
+SUPABASE_URL = os.getenv('SUPABASE_URL')
+SUPABASE_KEY = os.getenv('SUPABASE_KEY')
 
 # Initialize Supabase client
 supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)

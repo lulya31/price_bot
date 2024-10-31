@@ -61,15 +61,6 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
     await update.message.reply_text('Выберите действие:', reply_markup=build_keyboard())
 
-async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    help_text = (
-        "Доступные команды:\n"
-        "/track <изменение_цены> - Отслеживать изменение цены токена\n"
-        "/help - Показать это сообщение\n"
-        "/stop - Остановить бота"
-    )
-    await update.message.reply_text(help_text, reply_markup=build_keyboard())
-
 async def show_tokens(query) -> None:
     keyboard = [[InlineKeyboardButton(token, callback_data=token_id) for token_id, token in major_cryptos.items()]]
     keyboard.append([InlineKeyboardButton("Другой токен", callback_data='other_token')])
@@ -219,7 +210,6 @@ async def main() -> None:
    application = ApplicationBuilder().token(API_KEY).build()
 
    application.add_handler(CommandHandler("start", start))
-   application.add_handler(CommandHandler("help", help_command))
    
    application.add_handler(CommandHandler("track", receive_price_change))
    application.add_handler(CallbackQueryHandler(handle_button_click))

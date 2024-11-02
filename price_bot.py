@@ -61,14 +61,14 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
     await update.message.reply_text('Выберите действие:', reply_markup=build_keyboard())
 
+async def track_token(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    query = update.callback_query
+    await show_tokens(query)
+
 async def show_tokens(query) -> None:
     keyboard = [[InlineKeyboardButton(token, callback_data=token_id) for token_id, token in major_cryptos.items()]]
     keyboard.append([InlineKeyboardButton("Другой токен", callback_data='other_token')])
     await query.message.reply_text("Выберите токен для отслеживания:", reply_markup=InlineKeyboardMarkup(keyboard))
-
-async def track_token(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    query = update.callback_query
-    await show_tokens(query)
 
 async def handle_token_selection(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     query = update.callback_query
